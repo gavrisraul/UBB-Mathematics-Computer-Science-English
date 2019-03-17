@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+#define MAX_NUM 100  
+
+int sum = 0;
+
+pthread_mutex_t mtx = PTHREAD_MUTEX_INITIALIZER;
+
+
+void* f(void* a)
+{
+  int k = *(int*)a;
+
+  srand(time(NULL));
+  int n = rand() % k;
+
+  pthread_mutex_lock(&mtx);
+  sum += n;
+  pthread_mutex_unlock(&mtx);
+
+  //printf("Sum: %d\n", sum);
+
+  return NULL;
+}
+
+
+
+int main(int argc, char* argv[])
+{
+  pthread_t t[MAX_NUM];                
+
+  int i;
+  for (i = 0; i < MAX_NUM; i++)
+  {
+    int n = 10 * i + 10;
+    pthread_create(&t[i], NULL, f, &n); 
+  }
+
+  for (i = 0; i < MAX_NUM; i++)
+  {
+    pthread_join(t[i], NULL);         
+  }
+
+  printf("Sum: %d\n", sum);
+
+  return 0;
+}

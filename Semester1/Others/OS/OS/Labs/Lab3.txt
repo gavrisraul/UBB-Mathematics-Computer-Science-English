@@ -1,0 +1,38 @@
+• inceput de rand -> ^
+• ^$ -> match pe linii goale
+• \< -> match pe inceput de cuvant
+• \> -> sfarsit de cuvant
+• range de caractere [abc] -> match pe un caracter
+• [a-zA-Z0-9] -> orice caracter alfa numeric
+• [^a-zA-z-0-9] -> orice nu e 
+• . -> orice caracter, un caracter
+• \(...\) -> formeaza un grup
+• [a-z]\? -> never or once 
+• a\? -> apare a o data sau niciodata
+• \+ -> o data sau de oricate ori
+• 0* -> 0 de oricate ori
+• \{3\} -> apare de exact 3 ori
+• a\{2,5\} -> apare a de la 2 la 5 ori -> face match pe aa, aaa, aaaa, aaaaa
+• a\{2,\} -> cel putin doua aparitii
+• a\{,5\} -> maxim cinci aparitii
+
+• Caractere speciale: ? + {} <> | () -> daca sunt specificate intr-o expresie regulara reprezinta caracterul in sine
+	Folosite cu \ \, au alta semnificatie 
+• []^$.*\ -> inseamna by default altceva, nu caracterul
+
+• pentru textul "{a+3}" -> {a+3}
+• pentru textul "[a+3]" -> \[a+3\]
+
+• ce contine cuvantul ana in /etc/passwd/: "\<ana\>"
+__________________
+sed
+> comanda/ . _ . / ....
+ y/abc/ABC -> translatare din abc in ABC
+ s/regexp/replacement/ -> regexp=expresie regulara, 
+ s/^/A/ -> pune un A la inceputul fiecarei linii
+> cat ana.txt | sed s/"\<ana\>"/"vasile"/
+> sed face by default numai pe prima aparitie; +/g = global
+
+
+> ^\([^:]\):x:numere:numere:\([A-Z]\+\):[^:] 
+> cat /etc/passwd | sed s/"\([^:]*\):[^A-Z]*\([^:]*\).*"/"\2 -> \1@scs.ubbcluj.ro"/

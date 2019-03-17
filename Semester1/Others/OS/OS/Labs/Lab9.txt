@@ -1,0 +1,50 @@
+THREADS:
+
+1. Sa se creeze 10 threaduri pentru calcularea sumei tututor numerelor de la 1 la 1000 (se va imparti intervalul in 10 subintervale egale).
+   Toate threadurile vor incrementa aceeasi variabila globala ce la final va reprezenta suma.
+500500
+- prima data fara mutexuri, a doua oara cu mutexuri
+
+pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_lock( &mutex1 );
+pthread_mutex_unlock( &mutex1 );
+
+
+srand ( time(NULL) );
+int random_number = rand();
+
+|1 .. 100|101 .. 200| ... | 901 .. 1000|
+
+2. Sa se scrie un program care primeste oricati parametri (stringuri oricat de lungi) din linia de comanda.
+   Pentru fiecare parametru creeaza cate un thread, caruia ii da ca si argument parametrul corespunzator.
+   Fiecare thread va trebui sa afiseze argumentul primit pe o linie, caracter cu caracter, fara a permite intercalarea caracterelor din mai multe stringuri.
+
+Exemplu:
+
+$ ./program abcdefghijklm aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 1234567890 nopqrstuvwxyz bbbbbbbbbbbbbbbbbbbb
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+nopqrstuvwxyz
+1234567890
+bbbbbbbbbbbbbbbbbbbb
+abcdefghijklm
+
+Implementarea este corecta daca la rulari consecutive ordinea stringurilor afisate difera, insa niciodata nu se intercaleaza caracterele unui argument cu cele ale altui argument.
+
+lucru cu threaduri:
+#include <pthread.h>
+compilare -pthread
+pthread_t th;
+pthread_create(&th, NULL, func, arg(al functiei func));
+void* funct(void* arg) {
+
+	return NULL(sau orice altceva);
+}
+pthread_join(th, NULL); -> un fel de wait
+toate threadurile din cadrul aceluiasi proces au acces la aceeasi memorie: val globale si de pe heap, varabilele locale nu sunt vizibile de catre toate pentru ca fiecare thread are stiva proprie
+
+www.cs.ubbcluj.ro/~raul/so/cryp.c
+			  /criptare.txt
+			  /thread/lab.txt
+			  /thread/p1.c
+
+mutex -> se asigura ca niciun alt thread nu intervine intre operatiunile de scriere in memorie ale primului thread

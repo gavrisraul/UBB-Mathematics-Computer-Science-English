@@ -1,0 +1,58 @@
+www.cs.ubbcluj.ro/~rares/course/os/res/emv-etup/windows
+raul@cs.ubbcluj.ro
+ssh user@linux.scs.ubbcluj.ro
+putty: host, port 22, SSH
+
+• basic commands
+
+>pwd -> print working directory
+>cd -> change directory
+>ls -> list files in a directory
+    -l -> list with long format, show permissions
+>chmod -> change rights
+	1 -> user/owner/root
+	2 -> group
+	3 -> others
+	rights: drwx __x ___
+		chmod 716 [user] => drwx __x rw_
+		chmod g+w
+>touch [fileName] -> create new file
+>echo [anything]
+		>[fileName] -> paste [anything] message in [fileName]
+>cat [fileName] -> Concatenate files and print on the standard output
+>mkdir [dirName] -> make a new directory
+>cp [fileName] [folderName] -> copies file into folder
+>cp [file1] [file2] -> copy content of file1 into file2
+>mv [file] [folder] -> move file into folder
+>mv [file1] [file2] -> rename file1 with name of file2 (if file2 already exists, then it is removed)
+>rm [file] -> removes file
+	-rf -> remove recursively (all)
+>rmdir -> remove empty directory
+>[command] -h --h -> get help on your command
+>man [command] -> view manual for the command
+	/"something" -> searches for "something"
+	n -> go to next appearance
+	q -> back to terminal
+>mesg n -> stop broadcasting
+>echo mesg n >>.bash_profile
+>ping linux.scs.ubbcluj.ro
+>ps 
+	-> U [userID]
+	-> w [another user]
+	-> axuf (all)
+>jobs -> processes that run in background
+>ctr+c -> terminate
+>fg [order] -> bring in foreground running process
+>ctrl + R -> search in history
+>history
+>w -> shows who's logged on and what they are doing
+
+• executable a.sh
+#!/bin/bash
+
+• compile .c program
+>gcc -Wall(all possible warnings) -Werror(no continuation after warning) source.c(file name) -o(output) executable(name of executable file)
+
+• run .sh
+>sh a.sh -> easy way, doesn't need header or x rights
+>./executable -> harder way cica

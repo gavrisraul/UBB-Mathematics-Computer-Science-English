@@ -1,0 +1,12 @@
+1.Sa se scrie un script shell care primeste ca prim parametru un prefix, urmat de oricate cuvinte ca restul parametrilor. Sa se afiseze cate dintre cuvinte sunt prefixate de catre prefixul dat.
+
+ex. a.sh in india prin inel => afiseaza 2 (de la india si incl)
+
+2.Se citesc, de la tastatura, in continuu nume de fisiere. Citirea se termina atunci cand numarul total de linii din fisiere depaseste 10. (calculez suma numarului de linii din toate fisierele).
+
+3.Se primesc ca parametrii oricate nume de fisiere, sa se afiseze numarul mediu de cuvinte din fisiere
+
+S=`expr $s + $a`
+S=$(expr $s + $a)
+let "S=s+a"
+S=$((s+a))

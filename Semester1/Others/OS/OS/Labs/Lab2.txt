@@ -1,0 +1,72 @@
+Sa se citeasca 10 numere de la tastatura
+
+#include <stdio.h>
+
+int main()
+{
+	int i;
+	int *x;
+	for(i =0; i<=10; i++)
+	{
+		scanf("%d", &x[i]);
+	}
+	
+}
+_________________________________
+
+> gdb name_of_executable
+>r -> run
+>bt -> afiseaza stiva de executie
+>gcc -o test 1.c -g(adauga chestii pt debug)
+_________________________________
+
+#include <stdio.h>
+
+int main()
+{
+	int i;
+	int *x = malloc(10);
+	for(i =0; i<=10; i++)
+	{
+		scanf("%d", &x[i]);
+	}
+	
+}
+__________________
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+	int i;
+	int *x = malloc(10);
+	for(i =0; i<=10; i++)
+	{
+		scanf("%d", &x[i]);
+	}
+	
+}
+____________________
+
+valgrind ./test
+
+____________________
+
+malloc(10) - au loc 2 int si jumatate
+valgrind --leak-check=full ./test
+gcc -o test test.c -g -Wall -Werror
+______________________
+
+1. se citesc 10 numere de la tastatura, sa se afiseze minimul, maximul si media lor
+_________________
+
+2. se citeste m intre 1 si 10 si apoi se citesc m cuvinte de maxim 10 caractere
+sa se afiseze cuvintele citite
+
+#include <stdio.h>
+#include <stdlib.h>
+
+aux = x[j] - x[i];
+                                x[i] = x[j];
+                                x[j] = x[j] - aux;

@@ -1,0 +1,80 @@
+Tipuri de comenzi
+- simple
+- conectate prin pipe
+- liste de comenzi 	- comm1; comm2; comm3 (; == \n)
+			com1 && com2 && com3 (daca prima comanda returneaza true=0, se continua)
+			com1 || com2 || com3
+- comenzi compuse/complexe
+	- grupare 
+		• (LISTA) 
+		• {LISTA;}->executare in shell curent
+	- constructii conditionale
+	- constructii de ciclare
+
+>com & -> executa in backg
+>comanda > out.txt ->redirectare
+>comanda >> out.txt ->append
+>comand < in.txt
+
+• find
+find [WHERE] [CRITERIA] [WHAT]	
+find . -name "*.txt"
+var="Hello world"
+echo $var
+str=$(date +%Y-%m-%d)
+echo str
+a=$(expr $a + $b)
+a=`expr $a + $b`
+read str
+
+=====================
+s.sh a b c
+$# =3 -> numarul de argumente din linia de comanda
+$* = "a b c" -> toate argumentele, sub forma de string
+$@ = ["a", "b", "c"]
+...
+$1->a $2->b $3->c
+shift 
+$1->nu poate fi accesat $2->a $3->b
+
+======================
+if CONDITIE
+then
+	LISTA
+elif CONDITIE
+	LISTA
+else
+	LISTA
+fi
+
+======================
+test -e FILE -> true daca exista fisierul
+test -x FILE -> true daca exista fisierul si este executabil
+test -z STRING -> true daca stringul este vid 
+test -n STRING -> true daca nu este vid <=> test $STRING
+[ -> legatura simbolica la test
+if [ -e FILE ];then LISTA; else LISTA;fi <=> if test -e file
+=====================
+
+for i in VALORI ;do	(VALORI=$@ || VALORI =$* || VALORI=1 2 3 4 5 || VALORI=`seq 1 5`)
+	LISTA
+done
+===================
+
+while CONDITIE; do
+	LISTA
+done
+===================
+
+[ str1 == != < > str2 ] -> compara doua stringuri
+[ val1 OPERATOR val2 ]
+OPERATOR -> -eq, -ne(not equal), -gt, -lt, -ge, -le(less or equal)
+ex. [ $a -eq 5 ]
+===================
+
+Afisati toti parametrii din linia de comanda
+===================
+
+Sa se scrie un script shell care primeste ca prim parametru un prefix, urmat de oricate cuvinte ca restul parametrilor. Sa se afiseze cate dintre cuvinte sunt prefixate de catre prefixul dat.
+
+ex. a.sh in india prin inel => afiseaza 2 (de la india si incl)

@@ -1,0 +1,114 @@
+------------------------------ 1 ------------------------------------
+#!/bin/bash
+#Numarul mediu de linii din fisierele dintr-un director dat
+declare -i avg=0;
+declare -i nrtotal=0;
+declare -i nrfiles=0;
+for F in `find $1 -type f`; do
+        if file $F | grep -q ASCII; then
+                nrfiles=$(($nrfiles + 1))
+                contor=`cat $F | wc -l`
+                nrtotal=$(($nrtotal + $contor))
+        fi
+done
+echo -e " Nr total lines: $nrtotal  Nr files: $nrfiles   Average: $(($nrtotal/$nrfiles))"
+
+-------------------------- 2 ----------------------------------------
+#!/bin/bash
+#numele fisierelor care au un numar de 5 cifre in ele
+
+for f in `find $1 -type f`
+        do
+                if cat $f | grep -q '[0-9]\{5,\}'
+                        then
+                                echo $f | sed 's@.*/@@'
+                fi
+        done
+------------------------ 3 ---------------------------------------
+
+#!/bin/bash
+#primele 5 si ultimele 5 linii ale fisierelor
+for f in `find $1 -type f`;do
+        echo ---------  $f  --------
+        head -n 5 $f
+        tail -n 5 $f
+        echo -----------------------
+done
+
+-------------------- 4 ------------------------------------------
+#!/bin/bash
+#Toate fisierele dintr-un director dat(cu subdirectoarele lui) care au drept de scriere pentru toti utilizatorii (sa se puna .all dupa ele)
+for f in `find $1 -perm -ugo=w -type f`
+        do
+                echo $f
+                mv $f $f.all
+        done
+----------------- 5 ------------------------
+#!/bin/bash
+#Se dau mai multi parametri. Daca e fisier - numarul de linii + numarul de caractere. Daca e director - cate fisiere are in ierarhia de directoare
+declare -i lines=0;
+declare -i characters=0;
+declare -i nrfiles=0;
+for arg in $*; do
+        if [ -f $arg ]; then
+                echo $arg is a file
+                lines=`cat $arg | wc -l`
+                characters=`cat $arg | wc -m`
+                echo Lines: $lines  Characters: $characters
+        elif [ -d $arg ]; then
+                echo $arg is a directory
+                nrfiles=`find $arg -type f | wc -l`
+                echo $nrfiles
+        fi
+done
+
+
+
+
+#!/bin/bash
+#-------A--------
+declare -i nrdir=0;
+declare -i nrfiles=0;
+declare -i nrnum=o;
+for arg in $*; do
+        if [ -d $arg ]; then
+                 nrdir=$(($nrdir + 1))
+        elif [ -f $arg ]; then
+                nrfiles=$(($nrfiles + 1))
+        else
+               nrnum=$(($nrnum + 1))
+        fi
+done
+echo Nr dir: $nrdir  Nr files:$nrfiles   Nr numbers: $nrnum
+
+
+#~/bin/bash
+#--------B-------
+declare -i sum=0;
+while [ $sum -lt 6 ]; do
+        read number
+        sum=$(($sum + $number))
+        echo now the sum is $sum
+done
+
+
+--------- Practic -----------------
+#!/bin/bash
+#Se dau argumente prin linia de comanda.
+#a)Produsul numerelor mai mici ca 100.
+#b)Dirctor -> numarul de fisiere din el
+#!!! pot fi orice tip de prama: fisiere text,numere,director etc...
+declare -i p=1;
+declare -i nrf=0;
+for arg in $*; do
+        if [ -d $arg ]; then
+                nrf=`find $arg -type f | wc -l`
+                echo Directorul $arg are $nrf fisiere
+        fi
+        if echo $arg | grep -q '\b[0-9]\b';then
+                if [ $arg -lt 100 ]; then
+                        p=$(($p * $arg))
+                fi
+        fi
+done
+echo Produsul numerelor este : $p

@@ -1,0 +1,75 @@
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <unistd.h>
+
+#define MAX_NUM 1000  
+#define MAX_THR 10    
+
+int ndiv = 0;        
+
+int numbers[1000];
+
+pthread_mutex_t mtx = PTHREAD_MUTEX_INITIALIZER;
+
+
+void* f(void* a)
+{
+  int n = *(int*)a;
+
+  int i = 0;
+  while (i < 100)
+  {
+    int k = i + n;
+    int rem = numbers[k] % 5;
+
+    if (rem == 0)
+    {
+       pthread_mutex_lock(&mtx);
+       ndiv++;
+       pthread_mutex_unlock(&mtx);
+    }
+
+    i++;
+  }
+
+  return NULL;
+}
+
+
+
+int main(int argc, char* argv[])
+{
+  pthread_t t[MAX_THR];                 
+
+  int fd = open("random-file", O_RDONLY);
+  if (fd < 0)
+  {
+    perror("open: ");
+    exit(EXIT_FAILURE);
+  }
+  
+  int i;
+  for (i = 0; i < MAX_NUM; i++)
+  {
+    read(fd, &numbers[i], 2);
+  }
+
+  for (i = 0; i < MAX_THR; i++)
+  {
+    int n = 100 * (i + 1);
+    pthread_create(&t[i], NULL, f, &n); 
+  }
+
+  for (i = 0; i < MAX_THR; i++)
+  {
+    pthread_join(t[i], NULL);           
+  }
+
+  printf("Total divisors: %d\n", ndiv);
+
+  close(fd);
+
+  return 0;
+}

@@ -1,0 +1,27 @@
+int pos=0, N;
+========================
+func:
+char *y=(char*)param;
+cond=1;
+while(cond)
+	lock
+	if(pos < N)
+		...
+		pos++;
+	else
+		cond=0
+	unlock
+=========================
+main:
+int x[100];
+x[0];
+for(...)
+   ..........,x);
+
+bb.c:
+int n=*(int*)param;
+...
+=========================
+main:
+int N = atoi(argv[1]);
+for ....

@@ -1,0 +1,67 @@
+AWK
+
+(optional: |) awk -f a.awk input.txt
+awk '   ' input.txt
+
+PATTERN {BLOCK}
+• expresie: NR % 2 == 0 ~ regex -> fac match
+• expresie regulara: /regexp/
+• BEGIN, END
+• gol
+• !patter &&,|| patter
+
+NR -> number of records = numarul liniei
+NF -> number of fields = numarul de coloane
+FS -> field separator
+OFS -> output field separator
+RS -> record separator, de obicei new line
+ORS -> output record separator
+$0 -> toata linia curenta
+$1 -> first field
+$NF -> continutul ultimului field
+
+{ print $0 } { print NR }
+{ print $1 + $2 }
+NR%2 == 1 { ... }
+END {print NR }
+=======================
+BEGIN {sum = 0}
+END {print sum}
+{sum = sum+NF}
+======================
+print $1,$2 -> OFS
+print $1 $2 -> concatenare
+print $1":"$2 -> ce vrei in ghilimele
+=====================
+NR%2 == 0 {sum = 0; count = 0;
+	   	for(i=1;i<NF;i++)
+		{
+			if %i ~ "[0-9](\)+"{
+				sum = sum + $i
+				count = count + 1
+			}
+		}
+		print sum/count
+	  }
+====================
+ultima coloana daca linia inceape cu o cifra
+/^[0-9]/
+===================
+BEGIN {ORS=";"; FS=":"; OFS="" }
+{print $1, "@scs.ubbcluj.ro" }
+===================
+last | awk '$3 ~ "^nessie" && $4 ~ "^Fri$" {print $1}' |sort -u | uniq
+==================
+las | head -n -2 | awk '$1 ~ "^m.*[0-9]$" { print $1 }' | sed "s/[a-z]\+\([0-9]\+\)/\1/"
+
+=====================
+
+3. cat passwd.fake | awk -F ":" '$1 ~ "^m" && ($3 % 7 == 0) {print $3}'
+4. cat ps.fake | awk '$1=="root" {print $6}' | sort -u
+5. cat passwd.fake | grep "88:x" 
+6. cat passwd.fake | awk -F ':' '$3 ~ "^23[0-9]$"'
+7. /
+8. cat ps.fake | awk '$1 ~ "^r" {print $1}' | sort -u | sed s/"\([aeiou]\)"/"\1\1"/g
+9. cat passwd.fake | sed s/"[A-Za-z0-9 ]"/""/g | sort -u 
+10. cat passwd.fake | sed s/"[^r]"/""/g | sort -u | tail -n +2
+11. cat ps.fake | awk 'BEGIN{sum = 0} {sum = sum + $2} END{print sum/(NR-1)}'

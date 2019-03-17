@@ -1,0 +1,3 @@
+sleepSort->sleep(numar), printeaza dupa
+
+miracleSort->returneaza true daca sirul e deja sortat
