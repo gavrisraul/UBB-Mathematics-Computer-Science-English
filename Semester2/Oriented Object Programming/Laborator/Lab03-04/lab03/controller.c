@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "repository.h"
+#include "controller.h"
+
+void controllerInitialSetup(Controller **currentController) {
+    *currentController = malloc(sizeof(Controller));
+    repositoryInitialSetup(&((*currentController)->currentStock));
+}
+
+Medication controllerGetMedication(Controller *currentController, int index) {
+    return repositoryGetMedication(currentController->currentStock, index);
+}
+
+Stock *controllerGetAllMedications(Controller *currentController) {
+    repositoryGetAllMedications(currentController->currentStock);
+}
+
+int controllerAddMedication(Controller *currentController, char name[100], int concentration, int quantity, float price) {
+    return repositoryAddMedication(currentController->currentStock, name, concentration, quantity, price);
+}
+
+void controllerUpdateMedication(Controller *currentController, int index, char name[100], int concentration, int quantity, float price) {
+    repositoryUpdateMedication(currentController->currentStock, index, name, concentration, quantity, price);
+}
+
+void controllerDeleteMedication(Controller *currentController, int index) {
+    repositoryDeleteMedication(currentController->currentStock, index);
+}
+
+Stock controllerSearchMedication(Controller *currentController, char subString[100]) {
+    return repositorySearchMedications(currentController->currentStock, subString);
+}
+
+Stock controllerSearchMedicationSorted(Controller *currentController, char subString[100]) {
+    return repositorySearchMedicationsSorted(currentController->currentStock, subString);
+}
+
+Stock controllerGetMedicationByQuantity(Controller *currentController, int quantity) {
+    return repositoryGetMedicationByQuantity(currentController->currentStock, quantity);
+}
