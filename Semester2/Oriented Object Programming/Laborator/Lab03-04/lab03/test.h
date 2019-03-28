@@ -1,12 +1,8 @@
-#ifndef TEST
-#define TEST
-
+#pragma once
 #include <string.h>
 #include "ui.h"
 
-/*
-* Test the controller
-*/
 void populate(Ui *currentUi);
 
-#endif
+void runTests();
+

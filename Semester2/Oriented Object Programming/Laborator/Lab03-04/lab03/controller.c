@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "ui.h"
 #include "repository.h"
 #include "controller.h"
 
@@ -13,7 +14,7 @@ Medication controllerGetMedication(Controller *currentController, int index) {
 }
 
 Stock *controllerGetAllMedications(Controller *currentController) {
-    repositoryGetAllMedications(currentController->currentStock);
+    return repositoryGetAllMedications(currentController->currentStock);
 }
 
 int controllerAddMedication(Controller *currentController, char name[100], int concentration, int quantity, float price) {
@@ -38,4 +39,24 @@ Stock controllerSearchMedicationSorted(Controller *currentController, char subSt
 
 Stock controllerGetMedicationByQuantity(Controller *currentController, int quantity) {
     return repositoryGetMedicationByQuantity(currentController->currentStock, quantity);
+}
+
+void controllerUndo(ActionArray *currentActionArray, Controller *currentController) {
+    repositoryUndo(currentActionArray, currentController->currentStock);
+}
+
+void controllerRedo(ActionArray *currentActionArray, Controller *currentController) {
+    repositoryRedo(currentActionArray, currentController->currentStock);
+}
+
+void controllerAddUiState(ActionArray *currentActionArray, Controller *currentController) {
+    repositoryAddUiState(currentActionArray, currentController->currentStock);
+}
+
+void controllerCleanup(Controller *currentController) {
+    repositoryCleanup(currentController->currentStock);
+}
+
+void controllerCleanupActionArray(ActionArray *currentActionArray) {
+    repositoryCleanupActionArray(currentActionArray);
 }
